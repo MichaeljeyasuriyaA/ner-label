@@ -5,8 +5,10 @@ function preload() {
 function setup()
 {
   noCanvas();
+  document.getElementById('para').textContent=txt;
   console.log(txt);
 }
+document.getElementById('para');
 const form = document.querySelector(".grocery-form");
 const alert = document.querySelector(".alert");
 const grocery = document.getElementById("grocery");
