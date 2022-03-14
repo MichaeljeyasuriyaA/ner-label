@@ -5,7 +5,7 @@ function preload() {
 function setup()
 {
   noCanvas();
-  document.getElementById('para').textContent=txt;
+  document.getElementById('para').innerHTML=join(txt,'<br/>');
   console.log(txt);
 }
 document.getElementById('para');
@@ -297,8 +297,64 @@ function labelling(bgColor,value){
 // =========
 // json creation 
 // =========
-function jsonformat()
-{
+// function jsonformat()
+// {
+//   prt= document.getElementsByClassName("paragraph")
+//   dict={}
+//   dict2=[]
+//   $('.para').children('span').each(function () {
+//     cls= this.className;
+//     v=this.textContent;
+//     console.log(cls);
+//     console.log(v);
+//     dict[cls]=v;
+//     // console.log("inside loop");
+
+//     child = {
+//       label: this.className,
+//       text:this.textContent
+//     };
+//     dict2.push(child);
+
+// });
+
+// console.log(dict);
+// console.log(dict2);
+// let j1 = JSON.stringify(dict);
+// let j2 = JSON.stringify(dict2);
+// console.log(j1);
+// console.log(j2);
+// var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(j2);
+// var dlAnchorElem = document.getElementById('export');
+// dlAnchorElem.setAttribute("href",     dataStr     );
+// dlAnchorElem.setAttribute("download", "scene.json");
+// dlAnchorElem.click();
+// }
+
+
+
+function download(j2) {
+			
+  //creating an invisible element
+  var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(j2);
+  var dlAnchorElem = document.getElementById('export');
+  dlAnchorElem.setAttribute("href",dataStr);
+  dlAnchorElem.setAttribute("download", "annotations.json");
+  // dlAnchorElem.click();
+  // Above code is equivalent to
+  // <a href="path of file" download="file name">
+
+  // 
+
+  // //onClick property
+  // element.click();
+
+  // document.body.removeChild(element);
+}
+
+// Start file download.
+document.getElementById("export")
+.addEventListener("click", function() {
   prt= document.getElementsByClassName("paragraph")
   dict={}
   dict2=[]
@@ -317,16 +373,14 @@ function jsonformat()
     dict2.push(child);
 
 });
-
 console.log(dict);
 console.log(dict2);
+var dict3={}
+dict3['Annotated data']=dict2;
 let j1 = JSON.stringify(dict);
-let j2 = JSON.stringify(dict2);
+let j2 = JSON.stringify(dict3,null,4);
 console.log(j1);
 console.log(j2);
-var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(j2);
-var dlAnchorElem = document.getElementById('export');
-dlAnchorElem.setAttribute("href",     dataStr     );
-dlAnchorElem.setAttribute("download", "scene.json");
-dlAnchorElem.click();
-}
+
+  download(j2);
+}, false);
